@@ -32,19 +32,16 @@ bot.onText(/\/predict/, (msg) => {
 
 bot.on('message', (msg) => {
     if(state == 1){
-        s = msg.text.split("|")
-        i = parseFloat(s[0])
-        r = parseFloat(s[1])
-        
+        s = msg.text.split("|");
         model.predict(
             [
-                i, // string to float
-                r
+                parseFloat(s[0]), // string to float
+                parseFloat(s[1])
             ]
         ).then((jres1)=>{
             console.log(jres1);
             
-            cls_model.classify([i, r, parseFloat(jres1[0]), parseFloat(jres1[1])]).then((jres2)=>{
+            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1])]).then((jres2)=>{
                 bot.sendMessage(
                 msg.chat.id,
                 `nilai v yang diprediksi adalah ${jres1[0]} volt`
@@ -57,10 +54,15 @@ bot.on('message', (msg) => {
                 msg.chat.id,
                 `Klasifikasi Tegangan ${jres2}`
                 );
+                state = 0;
             })
         })
     }else{
-        state = 0
+        bot.sendmessage(
+        msg.chat.id,
+        `Please Click /start`
+        );
+        state = 0;
     }
 })
 
@@ -92,7 +94,7 @@ r.get('/classify/:i/:r', function(req, res, next) {
                 parseFLoat(jres[1])
             ]
         ).then((jres)=>{            
-            res.json(jres_)
+            res.json({jres, jres_})
         })
     })
 });
