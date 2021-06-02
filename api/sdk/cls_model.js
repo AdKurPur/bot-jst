@@ -31,7 +31,7 @@ async function classify(data){
 
     try{
         // path load in public access => github
-        const path = 'https://raw.githubusercontent.com/AdKurPur/bot-jst/main/public/ex_model/model.json';
+        const path = 'https://raw.githubusercontent.com/AdKurPur/bot-jst/main/public/cls_model/model.json';
         const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
