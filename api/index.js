@@ -11,14 +11,14 @@ const token = '1883249139:AAFWnnY-9MgAYajxBckp7YwRvTT06qCfiBc'
 const bot = new TelegramBot(token, {polling: true});
 
 state = 0;
-// bots
+// Main Menu Bot
 bot.onText(/\/start/, (msg) => { 
-    console.log(msg)
     bot.sendMessage(
         msg.chat.id,
         `hello ${msg.chat.first_name}, welcome...\n
         click /predict`
     );   
+    state = 0;
 });
 
 // input requires i and r
@@ -32,16 +32,16 @@ bot.onText(/\/predict/, (msg) => {
 
 bot.on('message', (msg) => {
     if(state == 1){
-        s = msg.text.split('|')
+        s = msg.text.split("|")
         i = parseFloat(s[0])
         r = parseFloat(s[1])
         
         model.predict(
             [
-                i,
+                i, // string to float
                 r
             ]
-        ).then((jres)=>{
+        ).then((jres1)=>{
             v = parseFloat(jres1[0])
             p = parseFloat(jres1[1])
             
