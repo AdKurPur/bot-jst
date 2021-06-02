@@ -12,10 +12,16 @@ const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]).redu
 const argMax = argFact((min, el) => (el,[0] > min[0] ? el : min))
 
 function ArgMax(res){
-    label = "NORMAL"
-    if(argMax(res) == 1){
+    label = "NORMAL" 
+    cls_data = []
+    for(i=0; i<res.length; i++){
+        cls_data[i] = res[i]
+    }
+    console.log(cls_data, argMax(cls_data)):
+    
+    if(argMax(cls_data) == 1){
         label = "OVER VOLTAGE"
-    }if(argMax(res) == 2){
+    }if(argMax(cls_data) == 0){
         label = "DROP VOLTAGE"
     }
     return label
