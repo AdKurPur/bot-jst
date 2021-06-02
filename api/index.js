@@ -32,7 +32,7 @@ bot.onText(/\/predict/, (msg) => {
 
 bot.on('message', (msg) => {
     if(state == 1){
-        s = msg.text.split("|");
+        s = msg.text.split("|")
         model.predict(
             [
                 parseFloat(s[0]), // string to float
@@ -58,7 +58,7 @@ bot.on('message', (msg) => {
             })
         })
     }else{
-        bot.sendmessage(
+        bot.sendMessage(
         msg.chat.id,
         `Please Click /start`
         );
